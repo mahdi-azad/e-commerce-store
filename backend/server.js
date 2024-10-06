@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 //authentication
 app.use("/api/auth", authRoutes)
-app.use("/api/product", productRoutes)
+app.use("/api/products", productRoutes)
 
 
 app.listen(PORT, () => {
