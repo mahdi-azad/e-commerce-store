@@ -8,6 +8,7 @@ import SignUpPage from "./pages/SignupPage";
 import { useUserStore } from "./stores/useUserStore";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -39,16 +40,26 @@ function App() {
             path="/login"
             element={!user ? <LoginPage /> : <Navigate to="/" />}
           ></Route>
+          {/* <Route
+            path="/secret-dashboard"
+            element={() => {
+              console.log("User Role in Route:", user?.role);
+              user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />;
+            }}
+          /> */}
           <Route
             path="/secret-dashboard"
             element={
-              user?.role === "admin" ? (
+              user === undefined ? (
+                <div>Loading...</div> // Show loading if user is undefined
+              ) : user?.role === "admin" ? (
                 <AdminPage />
               ) : (
-                <Navigate to="/secret-dashboard" />
+                <Navigate to="/login" />
               )
             }
           />
+          <Route path="/category/:category" element={<CategoryPage />} />
         </Routes>
       </div>
       <Toaster />
